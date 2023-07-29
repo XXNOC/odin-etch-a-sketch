@@ -29,6 +29,12 @@ gridSize.addEventListener("input", (e) => {
 
 colorPicker.addEventListener("input", (e) => {
   currentColor = e.target.value;
+  mode = "colorMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.add("selected");
+  eraser.classList.remove("selected");
+  darkenMode.classList.remove("selected");
+  lightenMode.classList.remove("selected");
 });
 
 colorMode.addEventListener("click", () => {
