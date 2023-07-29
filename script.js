@@ -5,6 +5,7 @@ const colorMode = document.querySelector("#colorMode");
 const rainbowMode = document.querySelector("#rainbow");
 const eraser = document.querySelector("#eraser");
 const clear = document.querySelector("#clear");
+const gridText = document.querySelector("#gridText");
 
 const DEFAULTCOLOR = "#212121";
 let currentColor = DEFAULTCOLOR;
@@ -19,23 +20,38 @@ createGrid(gridColumnAndRow);
 
 gridSize.addEventListener("change", (e) => {
   gridColumnAndRow = e.target.value;
+
   createGrid(gridColumnAndRow);
 });
 
-colorPicker.addEventListener("change", (e) => {
+gridSize.addEventListener("input", (e) => {
+  const ColumnAndRow = e.target.value;
+  gridText.textContent = `${ColumnAndRow} X ${ColumnAndRow}`;
+});
+
+colorPicker.addEventListener("input", (e) => {
   currentColor = e.target.value;
 });
 
 rainbowMode.addEventListener("click", () => {
   mode = "rainbowMode";
+  rainbowMode.classList.add("selected");
+  colorMode.classList.remove("selected");
+  eraser.classList.remove("selected");
 });
 
 eraser.addEventListener("click", () => {
   mode = "eraserMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.remove("selected");
+  eraser.classList.add("selected");
 });
 
 colorMode.addEventListener("click", () => {
   mode = "colorMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.add("selected");
+  eraser.classList.remove("selected");
 });
 
 clear.addEventListener("click", () => {
@@ -55,6 +71,7 @@ function createGrid(count) {
     gridElement.className = "gridElement";
     gridElement.style.width = `${gridWidthAndHeight}px`;
     gridElement.style.height = `${gridWidthAndHeight}px`;
+    gridElement.style.backgroundColor = "#FFFFFF";
     gridElement.addEventListener("mouseover", changeColor);
     gridElement.addEventListener("mousedown", changeColor);
     grid.appendChild(gridElement);
