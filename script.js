@@ -14,10 +14,6 @@ let currentColor = DEFAULTCOLOR;
 let gridColumnAndRow = 16;
 let mode = "colorMode";
 
-let mouseDown = false;
-document.body.addEventListener("mousedown", () => (mouseDown = true));
-document.body.addEventListener("mouseup", () => (mouseDown = false));
-
 createGrid(gridColumnAndRow);
 
 gridSize.addEventListener("change", (e) => {
@@ -107,33 +103,34 @@ function createGrid(count) {
 }
 
 function changeColor(e) {
-  if (e.type === "mouseover" && !mouseDown) return;
-  if (mode === "colorMode") {
-    e.target.style.backgroundColor = currentColor;
-    e.target.style.filter = "brightness(100%)";
-  }
-  if (mode === "rainbowMode") {
-    const colorR = random(255);
-    const colorG = random(255);
-    const colorB = random(255);
-    e.target.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
-    e.target.style.filter = "brightness(100%)";
-  }
-  if (mode === "eraserMode") {
-    e.target.style.backgroundColor = "#FFFFFF";
-    e.target.style.filter = "brightness(100%)";
-  }
-  if (mode === "darkenMode") {
-    const currentBrightness = e.target.style.filter.split(/[(%]/);
-    e.target.style.filter = `brightness(${
-      parseInt(currentBrightness[1]) - 10
-    }%)`;
-  }
-  if (mode === "lightenMode") {
-    const currentBrightness = e.target.style.filter.split(/[(%]/);
-    e.target.style.filter = `brightness(${
-      parseInt(currentBrightness[1]) + 10
-    }%)`;
+  if (e.buttons === 1) {
+    if (mode === "colorMode") {
+      e.target.style.backgroundColor = currentColor;
+      e.target.style.filter = "brightness(100%)";
+    }
+    if (mode === "rainbowMode") {
+      const colorR = random(255);
+      const colorG = random(255);
+      const colorB = random(255);
+      e.target.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
+      e.target.style.filter = "brightness(100%)";
+    }
+    if (mode === "eraserMode") {
+      e.target.style.backgroundColor = "#FFFFFF";
+      e.target.style.filter = "brightness(100%)";
+    }
+    if (mode === "darkenMode") {
+      const currentBrightness = e.target.style.filter.split(/[(%]/);
+      e.target.style.filter = `brightness(${
+        parseInt(currentBrightness[1]) - 10
+      }%)`;
+    }
+    if (mode === "lightenMode") {
+      const currentBrightness = e.target.style.filter.split(/[(%]/);
+      e.target.style.filter = `brightness(${
+        parseInt(currentBrightness[1]) + 10
+      }%)`;
+    }
   }
 }
 
