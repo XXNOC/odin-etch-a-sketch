@@ -115,9 +115,9 @@ function changeColor(e) {
       e.target.style.filter = "brightness(100%)";
     }
     if (mode === "rainbowMode") {
-      const colorR = random(255);
-      const colorG = random(255);
-      const colorB = random(255);
+      const colorR = random(256);
+      const colorG = random(256);
+      const colorB = random(256);
       e.target.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
       e.target.style.filter = "brightness(100%)";
     }
@@ -141,5 +141,5 @@ function changeColor(e) {
 }
 
 function random(number) {
-  return Math.floor(Math.random() * number) + 1;
+  return Math.floor(Math.random() * number);
 }
