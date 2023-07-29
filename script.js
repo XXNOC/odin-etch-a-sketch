@@ -3,6 +3,8 @@ const gridSize = document.querySelector("#gridSize");
 const colorPicker = document.querySelector("#colorPicker");
 const colorMode = document.querySelector("#colorMode");
 const rainbowMode = document.querySelector("#rainbow");
+const darkenMode = document.querySelector("#darken");
+const lightenMode = document.querySelector("#lighten");
 const eraser = document.querySelector("#eraser");
 const clear = document.querySelector("#clear");
 const gridText = document.querySelector("#gridText");
@@ -33,11 +35,40 @@ colorPicker.addEventListener("input", (e) => {
   currentColor = e.target.value;
 });
 
+colorMode.addEventListener("click", () => {
+  mode = "colorMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.add("selected");
+  eraser.classList.remove("selected");
+  darkenMode.classList.remove("selected");
+  lightenMode.classList.remove("selected");
+});
+
 rainbowMode.addEventListener("click", () => {
   mode = "rainbowMode";
   rainbowMode.classList.add("selected");
   colorMode.classList.remove("selected");
   eraser.classList.remove("selected");
+  darkenMode.classList.remove("selected");
+  lightenMode.classList.remove("selected");
+});
+
+darkenMode.addEventListener("click", () => {
+  mode = "darkenMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.remove("selected");
+  eraser.classList.remove("selected");
+  darkenMode.classList.add("selected");
+  lightenMode.classList.remove("selected");
+});
+
+lightenMode.addEventListener("click", () => {
+  mode = "lightenMode";
+  rainbowMode.classList.remove("selected");
+  colorMode.classList.remove("selected");
+  eraser.classList.remove("selected");
+  darkenMode.classList.remove("selected");
+  lightenMode.classList.add("selected");
 });
 
 eraser.addEventListener("click", () => {
@@ -45,19 +76,15 @@ eraser.addEventListener("click", () => {
   rainbowMode.classList.remove("selected");
   colorMode.classList.remove("selected");
   eraser.classList.add("selected");
-});
-
-colorMode.addEventListener("click", () => {
-  mode = "colorMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.add("selected");
-  eraser.classList.remove("selected");
+  darkenMode.classList.remove("selected");
+  lightenMode.classList.remove("selected");
 });
 
 clear.addEventListener("click", () => {
   const elements = document.querySelectorAll(".gridElement");
   elements.forEach((element) => {
     element.style.backgroundColor = "#FFFFFF";
+    element.style.filter = "brightness(100%)";
   });
 });
 
@@ -72,6 +99,7 @@ function createGrid(count) {
     gridElement.style.width = `${gridWidthAndHeight}px`;
     gridElement.style.height = `${gridWidthAndHeight}px`;
     gridElement.style.backgroundColor = "#FFFFFF";
+    gridElement.style.filter = "brightness(100%)";
     gridElement.addEventListener("mouseover", changeColor);
     gridElement.addEventListener("mousedown", changeColor);
     grid.appendChild(gridElement);
@@ -82,15 +110,30 @@ function changeColor(e) {
   if (e.type === "mouseover" && !mouseDown) return;
   if (mode === "colorMode") {
     e.target.style.backgroundColor = currentColor;
+    e.target.style.filter = "brightness(100%)";
   }
   if (mode === "rainbowMode") {
     const colorR = random(255);
     const colorG = random(255);
     const colorB = random(255);
     e.target.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
+    e.target.style.filter = "brightness(100%)";
   }
   if (mode === "eraserMode") {
     e.target.style.backgroundColor = "#FFFFFF";
+    e.target.style.filter = "brightness(100%)";
+  }
+  if (mode === "darkenMode") {
+    const currentBrightness = e.target.style.filter.split(/[(%]/);
+    e.target.style.filter = `brightness(${
+      parseInt(currentBrightness[1]) - 10
+    }%)`;
+  }
+  if (mode === "lightenMode") {
+    const currentBrightness = e.target.style.filter.split(/[(%]/);
+    e.target.style.filter = `brightness(${
+      parseInt(currentBrightness[1]) + 10
+    }%)`;
   }
 }
 

@@ -45,12 +45,13 @@ body {
 }
 
 .settings {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   margin: 50px;
-  gap: 30px;
+  margin-top: 0px;
 }
 
 button {
@@ -60,6 +61,8 @@ button {
   border: #212121 2px solid;
   transition-duration: 0.3s;
   width: 100%;
+  padding: 10px 50px;
+  font-size: 16px;
 }
 #colorPicker {
   -webkit-appearance: none;
@@ -70,6 +73,7 @@ button {
   border: none;
   transition-duration: 0.3s;
   background: none;
+  margin-top: 10px;
 }
 
 #colorPicker:hover {
@@ -97,13 +101,15 @@ button:hover {
   appearance: none;
   background: #f2f2f2;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 #gridText {
-  margin-bottom: -25px;
-  font-size: 14px;
+  font-size: 15px;
+  margin-bottom: -15px;
 }
 
 #title {
   margin-bottom: 30px;
+  font-size: 60px;
 }
