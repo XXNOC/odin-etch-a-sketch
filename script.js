@@ -9,77 +9,42 @@ const eraser = document.querySelector("#eraser");
 const clear = document.querySelector("#clear");
 const gridText = document.querySelector("#gridText");
 
-const DEFAULTCOLOR = "#212121";
-let currentColor = DEFAULTCOLOR;
-let gridColumnAndRow = 16;
+let currentColor = "#212121";
 let mode = "colorMode";
 
-createGrid(gridColumnAndRow);
+createGrid(16);
 
 gridSize.addEventListener("change", (e) => {
-  gridColumnAndRow = e.target.value;
-
-  createGrid(gridColumnAndRow);
+  createGrid(e.target.value);
 });
 
 gridSize.addEventListener("input", (e) => {
-  const ColumnAndRow = e.target.value;
-  gridText.textContent = `${ColumnAndRow} X ${ColumnAndRow}`;
+  gridText.textContent = `${e.target.value} X ${e.target.value}`;
 });
 
 colorPicker.addEventListener("input", (e) => {
   currentColor = e.target.value;
-  mode = "colorMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.add("selected");
-  eraser.classList.remove("selected");
-  darkenMode.classList.remove("selected");
-  lightenMode.classList.remove("selected");
+  changeMode("colorMode");
 });
 
 colorMode.addEventListener("click", () => {
-  mode = "colorMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.add("selected");
-  eraser.classList.remove("selected");
-  darkenMode.classList.remove("selected");
-  lightenMode.classList.remove("selected");
+  changeMode("colorMode");
 });
 
 rainbowMode.addEventListener("click", () => {
-  mode = "rainbowMode";
-  rainbowMode.classList.add("selected");
-  colorMode.classList.remove("selected");
-  eraser.classList.remove("selected");
-  darkenMode.classList.remove("selected");
-  lightenMode.classList.remove("selected");
+  changeMode("rainbowMode");
 });
 
 darkenMode.addEventListener("click", () => {
-  mode = "darkenMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.remove("selected");
-  eraser.classList.remove("selected");
-  darkenMode.classList.add("selected");
-  lightenMode.classList.remove("selected");
+  changeMode("darkenMode");
 });
 
 lightenMode.addEventListener("click", () => {
-  mode = "lightenMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.remove("selected");
-  eraser.classList.remove("selected");
-  darkenMode.classList.remove("selected");
-  lightenMode.classList.add("selected");
+  changeMode("lightenMode");
 });
 
 eraser.addEventListener("click", () => {
-  mode = "eraserMode";
-  rainbowMode.classList.remove("selected");
-  colorMode.classList.remove("selected");
-  eraser.classList.add("selected");
-  darkenMode.classList.remove("selected");
-  lightenMode.classList.remove("selected");
+  changeMode("eraserMode");
 });
 
 clear.addEventListener("click", () => {
@@ -115,10 +80,9 @@ function changeColor(e) {
       e.target.style.filter = "brightness(100%)";
     }
     if (mode === "rainbowMode") {
-      const colorR = random(256);
-      const colorG = random(256);
-      const colorB = random(256);
-      e.target.style.backgroundColor = `rgb(${colorR}, ${colorG}, ${colorB})`;
+      e.target.style.backgroundColor = `rgb(${random(256)}, ${random(
+        256
+      )}, ${random(256)})`;
       e.target.style.filter = "brightness(100%)";
     }
     if (mode === "eraserMode") {
@@ -138,6 +102,21 @@ function changeColor(e) {
       }%)`;
     }
   }
+}
+
+function changeMode(newMode) {
+  if (mode === "colorMode") colorMode.classList.remove("selected");
+  if (mode === "rainbowMode") rainbowMode.classList.remove("selected");
+  if (mode === "darkenMode") darkenMode.classList.remove("selected");
+  if (mode === "lightenMode") lightenMode.classList.remove("selected");
+  if (mode === "eraserMode") eraser.classList.remove("selected");
+
+  if (newMode === "colorMode") colorMode.classList.add("selected");
+  if (newMode === "rainbowMode") rainbowMode.classList.add("selected");
+  if (newMode === "darkenMode") darkenMode.classList.add("selected");
+  if (newMode === "lightenMode") lightenMode.classList.add("selected");
+  if (newMode === "eraserMode") eraser.classList.add("selected");
+  mode = newMode;
 }
 
 function random(number) {
