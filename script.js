@@ -14,38 +14,18 @@ let mode = "colorMode";
 
 createGrid(16);
 
-gridSize.addEventListener("change", (e) => {
-  createGrid(e.target.value);
-});
+gridSize.addEventListener("change", (e) => createGrid(e.target.value));
+gridSize.addEventListener(
+  "input",
+  (e) => (gridText.textContent = `${e.target.value} X ${e.target.value}`)
+);
 
-gridSize.addEventListener("input", (e) => {
-  gridText.textContent = `${e.target.value} X ${e.target.value}`;
-});
-
-colorPicker.addEventListener("input", (e) => {
-  currentColor = e.target.value;
-  changeMode("colorMode");
-});
-
-colorMode.addEventListener("click", () => {
-  changeMode("colorMode");
-});
-
-rainbowMode.addEventListener("click", () => {
-  changeMode("rainbowMode");
-});
-
-darkenMode.addEventListener("click", () => {
-  changeMode("darkenMode");
-});
-
-lightenMode.addEventListener("click", () => {
-  changeMode("lightenMode");
-});
-
-eraser.addEventListener("click", () => {
-  changeMode("eraserMode");
-});
+colorPicker.addEventListener("input", (e) => changeMode("colorMode", e));
+colorMode.addEventListener("click", () => changeMode("colorMode"));
+rainbowMode.addEventListener("click", () => changeMode("rainbowMode"));
+darkenMode.addEventListener("click", () => changeMode("darkenMode"));
+lightenMode.addEventListener("click", () => changeMode("lightenMode"));
+eraser.addEventListener("click", () => changeMode("eraserMode"));
 
 clear.addEventListener("click", () => {
   const elements = document.querySelectorAll(".gridElement");
@@ -104,7 +84,7 @@ function changeColor(e) {
   }
 }
 
-function changeMode(newMode) {
+function changeMode(newMode, event = null) {
   if (mode === "colorMode") colorMode.classList.remove("selected");
   if (mode === "rainbowMode") rainbowMode.classList.remove("selected");
   if (mode === "darkenMode") darkenMode.classList.remove("selected");
@@ -116,6 +96,7 @@ function changeMode(newMode) {
   if (newMode === "darkenMode") darkenMode.classList.add("selected");
   if (newMode === "lightenMode") lightenMode.classList.add("selected");
   if (newMode === "eraserMode") eraser.classList.add("selected");
+  if (event) currentColor = event.target.value;
   mode = newMode;
 }
 
