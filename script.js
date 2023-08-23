@@ -8,6 +8,7 @@ const lightenMode = document.querySelector("#lighten");
 const eraser = document.querySelector("#eraser");
 const clear = document.querySelector("#clear");
 const gridText = document.querySelector("#gridText");
+const test = "test";
 
 let currentColor = "#212121";
 let mode = "colorMode";
