@@ -114,16 +114,6 @@ button:hover {
   font-size: 60px;
 }
 
-.footer a {
-  color: #6795f1;
-  text-decoration: none;
-  transition-duration: 0.4s;
-}
-.footer a:hover {
-  color: #1064eb;
-  text-decoration: none;
-}
-
 .footer {
   position: absolute;
   bottom: 20px;
@@ -133,4 +123,14 @@ button:hover {
   margin: 10px auto 0px auto;
   color: #212121;
   font-size: 17px;
+}
+
+.fa-github {
+  color: #222;
+  font-size: 24px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg) scale(1.2);
 }
