@@ -9,4 +9,4 @@ Etch-a-Sketch app allows you to draw anything in a grid.
 
 ## [Live Site](https://xxnoc.github.io/odin-etch-a-sketch)
 
-![Landing Page](https://www.imghost.net/ib/fxJsKRaDXFw24FW_1695030808.png)
+![image](https://github.com/XXNOC/odin-etch-a-sketch/assets/99592950/9f08986f-2989-4795-bd7c-323bd3f23d46)
